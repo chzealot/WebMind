@@ -114,11 +114,11 @@ WebMind/
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=ch+ze+a+lo+t%2Fch+ze+a+lo+t%2Cchzealot%2FWebMind&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=chzealot%2FWebMind&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ch ze a lo t/ch ze a lo t%2Cchzealot/WebMind&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ch ze a lo t/ch ze a lo t%2Cchzealot/WebMind&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ch ze a lo t/ch ze a lo t%2Cchzealot/WebMind&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=chzealot/WebMind&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=chzealot/WebMind&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=chzealot/WebMind&type=date&legend=top-left" />
  </picture>
 </a>
 
