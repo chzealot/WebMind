@@ -28,7 +28,7 @@ WebMind/
 
 ## Multilingual Behavior
 
-WebMind automatically adapts to the user's language. **All generated content must match the language of the user's input**:
+WebMind automatically adapts to the user's language. **All generated content must match the language of the user's input text — ignore the language of existing directory names, filenames, and other files in the repository.** Only the user's current input determines the output language:
 
 | User's language | Directory name | HTML filename | HTML body content | PDF/PNG filename |
 |---|---|---|---|---|
@@ -38,6 +38,7 @@ WebMind automatically adapts to the user's language. **All generated content mus
 | Other | In that language | english-slug.html | In that language | In that language.pdf/.png |
 
 **Rules:**
+- **Language detection**: Determine the language solely from the user's input text. Do NOT infer language from existing directory names, filenames, or surrounding content in the repository.
 - **Directory names**: Use the user's language to describe the topic.
 - **HTML filenames**: Always lowercase English words joined by hyphens (`-`), 2–5 words (e.g., `css-grid-layout.html`). This ensures cross-platform path compatibility.
 - **PDF / PNG filenames**: Match the directory name exactly (in the user's language).

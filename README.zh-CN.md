@@ -112,6 +112,16 @@ WebMind/
 - **工作流**：编辑 `CLAUDE.md` 来调整知识创建流程
 - **导出**：修改 `.claude/skills/webmind-export/` 中的 Go 工具来调整导出参数
 
+## Star History
+
+<a href="https://www.star-history.com/?repos=ch+ze+a+lo+t%2Fch+ze+a+lo+t%2Cchzealot%2FWebMind&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=ch ze a lo t/ch ze a lo t%2Cchzealot/WebMind&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=ch ze a lo t/ch ze a lo t%2Cchzealot/WebMind&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=ch ze a lo t/ch ze a lo t%2Cchzealot/WebMind&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ## 开源协议
 
 [MIT](LICENSE)
