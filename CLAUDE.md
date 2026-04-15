@@ -68,6 +68,16 @@ Do not simply paste the user's raw question. Polish it:
 - Fix typos or grammatical issues
 - Fill in obvious gaps — but do not add unrelated content without asking the user first
 
+### Updating an Existing Knowledge Entry
+
+When the user asks to revise or extend an existing entry, **never append** to `prompt.md` or the HTML file. Appended content drifts over time and produces a disorganized, hard-to-read structure. Instead, regenerate both files from scratch:
+
+1. **Read the existing `prompt.md`** to understand the prior requirement.
+2. **Merge** the old requirement with the user's new feedback into a single, cohesive requirement — reorganize sections, remove redundancy, and resolve conflicts so the result reads as if it were written in one pass.
+3. **Overwrite `prompt.md`** entirely with the merged version. Do not keep a changelog or "update history" section inside `prompt.md`.
+4. **Regenerate the HTML file from scratch** based on the new `prompt.md`. Do not patch or append to the previous HTML — rebuild the full page so the information architecture stays clean.
+5. **Re-export PDF and PNG** as usual.
+
 ### Handling Attachments
 
 When the user's question involves images, files, or other attachments:
@@ -112,10 +122,23 @@ Generated HTML must follow the design spec in `DESIGN.md`. Key points:
 - **Static HTML by default**: No animations (CSS animation, transition, JS animation) to ensure exported PDF/PNG content is fully readable. Only add animations when the user explicitly requests them.
 - **Include `@media print` pagination-friendly styles**: Prevent figures, tables, and code blocks from being split across pages during PDF export (see `DESIGN.md` for details).
 
+### Page Layout & Information Density
+
+WebMind favors high information density over decorative whitespace. Knowledge pages are reference material, not marketing landing pages — readers want to see as much content per screen as possible.
+
+- **Wide-screen content area**: Default to a near-full-width content region. Minimize left/right gutters on desktop; avoid narrow centered columns reminiscent of blog posts. Reserve only enough edge padding to keep text from touching the viewport (roughly `clamp(24px, 4vw, 64px)`).
+- **Adaptive sidebar (table of contents)**:
+  - **When content is substantial** (multiple top-level sections, long scroll length, or more than ~4 `<h2>` headings): render a persistent left sidebar that lists the document outline (`<h2>` / `<h3>` anchors). The sidebar must support smooth in-page anchor navigation and highlight the active section as the reader scrolls (scroll-spy). Suggested width: `240px–280px`, `position: sticky`, independent vertical scroll.
+  - **When content is short or single-topic**: omit the sidebar entirely and let the content area span the full working width.
+  - The decision is made per page at generation time — do not ship an empty or near-empty sidebar.
+- **Collapsible on smaller desktops**: Provide a toggle to hide/show the sidebar on viewports between 768px and 1280px so readers can reclaim horizontal space on demand.
+
 ### Responsive Layout
 
-- **Must support both desktop and mobile**, using CSS `@media` queries for responsive layout.
-- Desktop: max content width per spec. Mobile (`max-width: 768px`): adjust font sizes, spacing, card layouts for readability.
+- **Must support desktop, tablet, and mobile**, using CSS `@media` queries.
+- **Desktop (≥ 1280px)**: Full-width content region with optional sticky sidebar as described above.
+- **Tablet (768px–1279px)**: Sidebar collapses to a toggleable drawer or is hidden by default; content takes the full width.
+- **Mobile (≤ 767px)**: Sidebar is hidden; if a TOC is valuable, expose it via a collapsible `<details>` block at the top of the article. Adjust font sizes, spacing, and card layouts for readability.
 - Images, tables, and code blocks must adapt to small screens — no horizontal overflow.
 - Card grids should switch to single-column on mobile.
 
