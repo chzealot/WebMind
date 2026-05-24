@@ -122,6 +122,30 @@ Generated HTML must follow the design spec in `DESIGN.md`. Key points:
 - **Static HTML by default**: No animations (CSS animation, transition, JS animation) to ensure exported PDF/PNG content is fully readable. Only add animations when the user explicitly requests them.
 - **Include `@media print` pagination-friendly styles**: Prevent figures, tables, and code blocks from being split across pages during PDF export (see `DESIGN.md` for details).
 
+### Font Loading
+
+Google Fonts is blocked, so **never load `fonts.googleapis.com` or `fonts.gstatic.com` directly**. Always route web-font requests through the community mirror `fonts.loli.net` (maintained by justjavac and ihex), which proxies both the CSS endpoint and the underlying font binaries — a simple host swap is enough, no other changes required.
+
+```html
+<link href="https://fonts.loli.net/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+```
+
+Even when a web font is requested, **always declare a complete system font fallback stack** so the page renders correctly when the network is slow or the mirror is unreachable. Define the stack as CSS variables on `:root` and apply them to body and code:
+
+```css
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+               "Source Han Sans CN", "Noto Sans CJK SC",
+               system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+body { font-family: var(--font-sans); }
+code, pre { font-family: var(--font-mono); }
+```
+
+When a web font like Inter or Geist Mono is used, prepend it to the relevant variable (e.g., `--font-sans: "Inter", -apple-system, …`) so the system stack remains the fallback.
+
 ### Page Layout & Information Density
 
 WebMind favors high information density over decorative whitespace. Knowledge pages are reference material, not marketing landing pages — readers want to see as much content per screen as possible.
