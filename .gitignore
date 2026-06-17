@@ -10,3 +10,6 @@
 !LICENSE
 !.claude
 !.github
+
+# 编译产物：webmind-export 工具二进制
+.claude/skills/webmind-export/scripts/webmind-export
