@@ -1,6 +1,6 @@
 # WebMind
 
-A personal knowledge base powered by [Claude Code](https://docs.anthropic.com/en/docs/claude-code), using beautifully designed HTML pages as knowledge carriers.
+A personal knowledge base powered by AI coding agents ([Claude Code](https://docs.anthropic.com/en/docs/claude-code) or [Codex](https://developers.openai.com/codex/)), using beautifully designed HTML pages as knowledge carriers.
 
 [简体中文](README.zh-CN.md) | **English**
 
@@ -28,13 +28,13 @@ Each knowledge entry is a directory containing:
 - **Dark mode** — Built-in light/dark theme toggle on every page
 - **Responsive** — Desktop and mobile friendly
 - **PDF & PNG export** — One-command export via a Go tool using Chrome DevTools Protocol
-- **AI-native workflow** — Designed to work with Claude Code as your knowledge assistant
+- **AI-native workflow** — Works with both Claude Code and Codex; conventions live in a single `AGENTS.md` (`CLAUDE.md` is a symlink to it)
 
 ## Getting Started
 
 ### Prerequisites
 
-- [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI installed
+- An AI coding agent CLI — [Claude Code](https://docs.anthropic.com/en/docs/claude-code) or [Codex](https://developers.openai.com/codex/)
 - Google Chrome (for PDF/PNG export)
 - Go 1.22+ (optional — only needed to build the export tool from source; pre-built binaries are available on the [Releases](../../releases) page)
 
@@ -65,12 +65,12 @@ Each knowledge entry is a directory containing:
    rm -rf /tmp/wm
    ```
 
-3. Start Claude Code in the project directory:
+3. Start your agent in the project directory:
    ```bash
-   claude
+   claude   # or: codex
    ```
 
-4. Ask any question — Claude Code will create a knowledge page for you following the workflow defined in `CLAUDE.md`.
+4. Ask any question — the agent will create a knowledge page for you following the workflow defined in `AGENTS.md` (Claude Code reads it via the `CLAUDE.md` symlink).
 
 ### Example
 
@@ -78,7 +78,7 @@ Each knowledge entry is a directory containing:
 You: What is the MECE principle?
 ```
 
-Claude Code will:
+The agent will:
 1. Create a directory (e.g., `MECE Principle/`)
 2. Write `prompt.md` with your polished question
 3. Generate a beautiful HTML page (`mece-principle.html`)
@@ -86,7 +86,7 @@ Claude Code will:
 
 ## How It Works
 
-The magic is in `CLAUDE.md` — it instructs Claude Code to follow a structured workflow:
+The magic is in `AGENTS.md` (the single source of truth; `CLAUDE.md` is a symlink to it) — it instructs the agent to follow a structured workflow:
 
 1. **Search** existing knowledge first (avoid duplicates)
 2. **Write `prompt.md`** — polish the user's question for LLM-friendliness
@@ -98,10 +98,11 @@ The magic is in `CLAUDE.md` — it instructs Claude Code to follow a structured 
 
 ```
 WebMind/
-├── CLAUDE.md                  # Workflow & guidelines for Claude Code
+├── AGENTS.md                  # Workflow & guidelines (single source of truth)
+├── CLAUDE.md                  # Symlink → AGENTS.md (so Claude Code picks it up)
 ├── DESIGN.md                  # Mintlify-inspired design system spec
 ├── LICENSE                    # MIT License
-├── .claude/skills/            # Claude Code skills
+├── .claude/skills/            # Claude Code skills (Codex reads them on demand per AGENTS.md)
 │   └── webmind-export/       # HTML → PDF/PNG export tool
 └── <knowledge-directories>/   # Your knowledge entries
 ```
@@ -109,7 +110,7 @@ WebMind/
 ## Customization
 
 - **Design**: Edit `DESIGN.md` to change colors, typography, spacing, or component styles
-- **Workflow**: Edit `CLAUDE.md` to adjust the knowledge creation process
+- **Workflow**: Edit `AGENTS.md` to adjust the knowledge creation process (never edit `CLAUDE.md` directly — it is a symlink)
 - **Export**: Modify the Go tool in `.claude/skills/webmind-export/` for different export settings
 
 ## Star History

@@ -1,6 +1,6 @@
 # WebMind
 
-基于 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 的个人知识库，以精美的 HTML 页面作为知识载体。
+基于 AI 编程助手（[Claude Code](https://docs.anthropic.com/en/docs/claude-code) 或 [Codex](https://developers.openai.com/codex/)）的个人知识库，以精美的 HTML 页面作为知识载体。
 
 **简体中文** | [English](README.md)
 
@@ -28,13 +28,13 @@ WebMind 将你的问题转化为精心设计的、独立的 HTML 知识页面—
 - **暗黑模式** — 每个页面内置亮色/暗色主题切换
 - **响应式布局** — 同时适配桌面端和移动端
 - **PDF & PNG 导出** — 基于 Go + Chrome DevTools Protocol 的一键导出
-- **AI 原生工作流** — 专为 Claude Code 作为知识助手而设计
+- **AI 原生工作流** — 同时支持 Claude Code 与 Codex；规范统一收敛于 `AGENTS.md`（`CLAUDE.md` 为指向它的软链接）
 
 ## 快速开始
 
 ### 前置要求
 
-- 已安装 [Claude Code](https://docs.anthropic.com/en/docs/claude-code) CLI
+- 已安装 AI 编程助手 CLI —— [Claude Code](https://docs.anthropic.com/en/docs/claude-code) 或 [Codex](https://developers.openai.com/codex/)
 - Google Chrome（用于 PDF/PNG 导出）
 - Go 1.22+（可选 — 仅从源码编译导出工具时需要；预编译二进制文件可在 [Releases](../../releases) 页面下载）
 
@@ -65,12 +65,12 @@ WebMind 将你的问题转化为精心设计的、独立的 HTML 知识页面—
    rm -rf /tmp/wm
    ```
 
-3. 在项目目录下启动 Claude Code：
+3. 在项目目录下启动你的助手：
    ```bash
-   claude
+   claude   # 或：codex
    ```
 
-4. 直接提问 — Claude Code 会按照 `CLAUDE.md` 中定义的工作流为你创建知识页面。
+4. 直接提问 —— 助手会按照 `AGENTS.md` 中定义的工作流为你创建知识页面（Claude Code 通过 `CLAUDE.md` 软链接读取同一份规范）。
 
 ### 示例
 
@@ -78,7 +78,7 @@ WebMind 将你的问题转化为精心设计的、独立的 HTML 知识页面—
 你：什么是 MECE 原则？
 ```
 
-Claude Code 会：
+助手会：
 1. 创建目录（如 `MECE原则/`）
 2. 编写 `prompt.md`，润色你的问题
 3. 生成精美的 HTML 页面（`mece-principle.html`）
@@ -86,7 +86,7 @@ Claude Code 会：
 
 ## 工作原理
 
-核心在于 `CLAUDE.md` — 它指导 Claude Code 遵循结构化的工作流：
+核心在于 `AGENTS.md`（唯一规范正本，`CLAUDE.md` 为指向它的软链接）—— 它指导助手遵循结构化的工作流：
 
 1. **搜索** — 先检索已有知识（避免重复）
 2. **编写 prompt.md** — 润色用户问题，使其对 LLM 更友好
@@ -98,10 +98,11 @@ Claude Code 会：
 
 ```
 WebMind/
-├── CLAUDE.md                  # Claude Code 的工作流与规范
+├── AGENTS.md                  # 工作流与规范（唯一正本）
+├── CLAUDE.md                  # 软链接 → AGENTS.md（供 Claude Code 读取）
 ├── DESIGN.md                  # Mintlify 风格设计系统规范
 ├── LICENSE                    # MIT 开源协议
-├── .claude/skills/            # Claude Code 技能
+├── .claude/skills/            # Claude Code 技能（Codex 按 AGENTS.md 指引按需读取）
 │   └── webmind-export/       # HTML → PDF/PNG 导出工具
 └── <知识目录>/                # 你的知识条目
 ```
@@ -109,7 +110,7 @@ WebMind/
 ## 自定义
 
 - **设计**：编辑 `DESIGN.md` 来修改配色、字体、间距或组件样式
-- **工作流**：编辑 `CLAUDE.md` 来调整知识创建流程
+- **工作流**：编辑 `AGENTS.md` 来调整知识创建流程（不要直接改 `CLAUDE.md`——它只是软链接）
 - **导出**：修改 `.claude/skills/webmind-export/` 中的 Go 工具来调整导出参数
 
 ## Star History
