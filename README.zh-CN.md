@@ -28,7 +28,7 @@ WebMind 将你的问题转化为精心设计的、独立的 HTML 知识页面—
 - **暗黑模式** — 每个页面内置亮色/暗色主题切换
 - **响应式布局** — 同时适配桌面端和移动端
 - **PDF & PNG 导出** — 基于 Go + Chrome DevTools Protocol 的一键导出
-- **AI 原生工作流** — 同时支持 Claude Code 与 Codex；规范统一收敛于 `AGENTS.md`（`CLAUDE.md` 为指向它的软链接）
+- **AI 原生工作流** — 同时支持 Claude Code 与 Codex；规范统一收敛于 `AGENTS.md`（`CLAUDE.md` 通过 `@AGENTS.md` 导入它）
 
 ## 快速开始
 
@@ -70,7 +70,7 @@ WebMind 将你的问题转化为精心设计的、独立的 HTML 知识页面—
    claude   # 或：codex
    ```
 
-4. 直接提问 —— 助手会按照 `AGENTS.md` 中定义的工作流为你创建知识页面（Claude Code 通过 `CLAUDE.md` 软链接读取同一份规范）。
+4. 直接提问 —— 助手会按照 `AGENTS.md` 中定义的工作流为你创建知识页面（Claude Code 通过 `CLAUDE.md` 里的 `@AGENTS.md` 导入读取同一份规范）。
 
 ### 示例
 
@@ -86,7 +86,7 @@ WebMind 将你的问题转化为精心设计的、独立的 HTML 知识页面—
 
 ## 工作原理
 
-核心在于 `AGENTS.md`（唯一规范正本，`CLAUDE.md` 为指向它的软链接）—— 它指导助手遵循结构化的工作流：
+核心在于 `AGENTS.md`（唯一规范正本，`CLAUDE.md` 通过 `@AGENTS.md` 导入它）—— 它指导助手遵循结构化的工作流：
 
 1. **搜索** — 先检索已有知识（避免重复）
 2. **编写 prompt.md** — 润色用户问题，使其对 LLM 更友好
@@ -99,7 +99,7 @@ WebMind 将你的问题转化为精心设计的、独立的 HTML 知识页面—
 ```
 WebMind/
 ├── AGENTS.md                  # 工作流与规范（唯一正本）
-├── CLAUDE.md                  # 软链接 → AGENTS.md（供 Claude Code 读取）
+├── CLAUDE.md                  # 通过 `@AGENTS.md` 导入 AGENTS.md（供 Claude Code 读取）
 ├── DESIGN.md                  # Mintlify 风格设计系统规范
 ├── LICENSE                    # MIT 开源协议
 ├── .claude/skills/            # Claude Code 技能（Codex 按 AGENTS.md 指引按需读取）
@@ -110,7 +110,7 @@ WebMind/
 ## 自定义
 
 - **设计**：编辑 `DESIGN.md` 来修改配色、字体、间距或组件样式
-- **工作流**：编辑 `AGENTS.md` 来调整知识创建流程（不要直接改 `CLAUDE.md`——它只是软链接）
+- **工作流**：编辑 `AGENTS.md` 来调整知识创建流程（不要直接改 `CLAUDE.md`——它只是导入 `AGENTS.md`）
 - **导出**：修改 `.claude/skills/webmind-export/` 中的 Go 工具来调整导出参数
 
 ## Star History

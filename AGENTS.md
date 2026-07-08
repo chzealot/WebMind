@@ -2,7 +2,7 @@
 
 Working guidelines for AI coding agents (Claude Code, Codex, and others) in this repository.
 
-> **Note on this file**: This is the single source of truth for working conventions. `CLAUDE.md` is a symlink to this file, so Claude Code and Codex read identical instructions — edit only `AGENTS.md`.
+> **Note on this file**: This is the single source of truth for working conventions. `CLAUDE.md` imports this file via Claude Code's `@AGENTS.md` syntax, so Claude Code and Codex read identical instructions — edit only `AGENTS.md`.
 
 > **Core Principle**: **All** user questions should follow the workflow — create `prompt.md`, HTML, PDF, and PNG files — rather than answering directly.
 
@@ -29,7 +29,7 @@ WebMind is a personal knowledge base that uses HTML pages as knowledge carriers,
 ```
 WebMind/
 ├── AGENTS.md              # Workflow & guidelines (single source of truth)
-├── CLAUDE.md              # Symlink → AGENTS.md (so Claude Code picks it up)
+├── CLAUDE.md              # Imports AGENTS.md via `@AGENTS.md` (so Claude Code picks it up)
 ├── DESIGN.md              # Design system spec (Mintlify-inspired)
 ├── <knowledge-directory>/  # Named to describe the topic
 │   ├── prompt.md          # The user's question / requirement

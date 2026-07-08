@@ -28,7 +28,7 @@ Each knowledge entry is a directory containing:
 - **Dark mode** — Built-in light/dark theme toggle on every page
 - **Responsive** — Desktop and mobile friendly
 - **PDF & PNG export** — One-command export via a Go tool using Chrome DevTools Protocol
-- **AI-native workflow** — Works with both Claude Code and Codex; conventions live in a single `AGENTS.md` (`CLAUDE.md` is a symlink to it)
+- **AI-native workflow** — Works with both Claude Code and Codex; conventions live in a single `AGENTS.md` (`CLAUDE.md` imports it via `@AGENTS.md`)
 
 ## Getting Started
 
@@ -70,7 +70,7 @@ Each knowledge entry is a directory containing:
    claude   # or: codex
    ```
 
-4. Ask any question — the agent will create a knowledge page for you following the workflow defined in `AGENTS.md` (Claude Code reads it via the `CLAUDE.md` symlink).
+4. Ask any question — the agent will create a knowledge page for you following the workflow defined in `AGENTS.md` (Claude Code reads it via the `@AGENTS.md` import in `CLAUDE.md`).
 
 ### Example
 
@@ -86,7 +86,7 @@ The agent will:
 
 ## How It Works
 
-The magic is in `AGENTS.md` (the single source of truth; `CLAUDE.md` is a symlink to it) — it instructs the agent to follow a structured workflow:
+The magic is in `AGENTS.md` (the single source of truth; `CLAUDE.md` imports it via `@AGENTS.md`) — it instructs the agent to follow a structured workflow:
 
 1. **Search** existing knowledge first (avoid duplicates)
 2. **Write `prompt.md`** — polish the user's question for LLM-friendliness
@@ -99,7 +99,7 @@ The magic is in `AGENTS.md` (the single source of truth; `CLAUDE.md` is a symlin
 ```
 WebMind/
 ├── AGENTS.md                  # Workflow & guidelines (single source of truth)
-├── CLAUDE.md                  # Symlink → AGENTS.md (so Claude Code picks it up)
+├── CLAUDE.md                  # Imports AGENTS.md via `@AGENTS.md` (so Claude Code picks it up)
 ├── DESIGN.md                  # Mintlify-inspired design system spec
 ├── LICENSE                    # MIT License
 ├── .claude/skills/            # Claude Code skills (Codex reads them on demand per AGENTS.md)
@@ -110,7 +110,7 @@ WebMind/
 ## Customization
 
 - **Design**: Edit `DESIGN.md` to change colors, typography, spacing, or component styles
-- **Workflow**: Edit `AGENTS.md` to adjust the knowledge creation process (never edit `CLAUDE.md` directly — it is a symlink)
+- **Workflow**: Edit `AGENTS.md` to adjust the knowledge creation process (never edit `CLAUDE.md` directly — it just imports `AGENTS.md`)
 - **Export**: Modify the Go tool in `.claude/skills/webmind-export/` for different export settings
 
 ## Star History
