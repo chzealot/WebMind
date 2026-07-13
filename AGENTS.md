@@ -73,6 +73,15 @@ WebMind automatically adapts to the user's language. **All generated content mus
 5. **Generate HTML**: Combine `prompt.md`, `AGENTS.md`, and `DESIGN.md` to produce the HTML file.
 6. **Export PDF and PNG**: After any HTML creation or change, export is mandatory (see "Export Guidelines").
 7. **Check directory structure**: If there are more than 10 sibling directories at the same level, reorganize using the MECE principle (see "Directory Management").
+8. **Report**: Reply with only the absolute path(s) of the knowledge directory/directories — nothing else (see "Final Reply").
+
+### Final Reply
+
+When the workflow finishes, the reply to the user must contain **only the absolute path of each knowledge directory**, one per line. No summaries, no explanations, no file listings.
+
+```
+/Users/zealot/Documents/WebMind/Software Engineering/Architecture & Cloud Native/Service Mesh Fundamentals
+```
 
 ### Writing `prompt.md`
 
