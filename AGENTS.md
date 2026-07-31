@@ -28,16 +28,20 @@ WebMind is a personal knowledge base that uses HTML pages as knowledge carriers,
 
 ```
 WebMind/
-├── AGENTS.md              # Workflow & guidelines (single source of truth)
-├── CLAUDE.md              # Imports AGENTS.md via `@AGENTS.md` (so Claude Code picks it up)
-├── DESIGN.md              # Design system spec (Mintlify-inspired)
-├── <knowledge-directory>/  # Named to describe the topic
-│   ├── prompt.md          # The user's question / requirement
-│   ├── assets/            # Attachments (images, files, etc. — created as needed)
-│   ├── <topic-slug>.html  # Knowledge article (HTML)
-│   ├── <dir-name>.pdf     # Exported PDF (filename matches directory name)
-│   └── <dir-name>.png     # Exported PNG long-screenshot (filename matches directory name)
+├── AGENTS.md                         # Workflow & guidelines (single source of truth)
+├── CLAUDE.md                         # Imports AGENTS.md via `@AGENTS.md`
+├── DESIGN.md                         # Design system spec (Mintlify-inspired)
+├── <category-directory>/             # Present once the repository is categorized
+│   └── [<subcategory-directory>/]    # Optional, repeatable category levels
+│       └── <knowledge-directory>/    # Named to describe the topic
+│           ├── prompt.md             # The user's question / requirement
+│           ├── assets/               # Attachments (created as needed)
+│           ├── <topic-slug>.html     # Knowledge article (HTML)
+│           ├── <dir-name>.pdf        # Exported PDF
+│           └── <dir-name>.png        # Exported PNG long-screenshot
 ```
+
+In a new or very small repository with no category directories, `<knowledge-directory>/` may live directly under `WebMind/`. Once category directories exist, use the categorized structure consistently — do not mix root-level knowledge entries with category directories. See "Directory Management" for the exact decision rules.
 
 ---
 
@@ -66,14 +70,15 @@ WebMind automatically adapts to the user's language. **All generated content mus
 
 ### Handling a New Question
 
-1. **Search existing knowledge**: Look through existing directories for a matching entry.
-2. **If a match exists**: Propose updating it — **you must get the user's approval** before modifying.
-3. **If no match**: Create a new directory and files.
-4. **Write `prompt.md` first**: Record the user's question/requirement (do NOT copy content from `DESIGN.md` into `prompt.md`).
-5. **Generate HTML**: Combine `prompt.md`, `AGENTS.md`, and `DESIGN.md` to produce the HTML file.
-6. **Export PDF and PNG**: After any HTML creation or change, export is mandatory (see "Export Guidelines").
-7. **Check directory structure**: If there are more than 10 sibling directories at the same level, reorganize using the MECE principle (see "Directory Management").
-8. **Report**: Reply with only the absolute path(s) of the knowledge directory/directories — nothing else (see "Final Reply").
+1. **Inspect the hierarchy**: Before choosing a path or writing any file, determine whether the repository is in flat mode or categorized mode (see "Directory Management").
+2. **Search existing knowledge**: Look through the entire existing hierarchy for a matching entry.
+3. **If a match exists**: Propose updating it — **you must get the user's approval** before modifying.
+4. **If no match**: Select the correct category path for the new entry, then create its directory and files. Never choose the repository root before evaluating the current hierarchy.
+5. **Write `prompt.md` first**: Record the user's question/requirement (do NOT copy content from `DESIGN.md` into `prompt.md`).
+6. **Generate HTML**: Combine `prompt.md`, `AGENTS.md`, and `DESIGN.md` to produce the HTML file.
+7. **Export PDF and PNG**: After any HTML creation or change, export is mandatory (see "Export Guidelines").
+8. **Validate placement and structure**: Confirm that the entry is in the narrowest appropriate category and that no level exceeds 10 child directories. Reorganize using the MECE principle before adding an 11th child.
+9. **Report**: Reply with only the absolute path(s) of the knowledge directory/directories — nothing else (see "Final Reply").
 
 ### Final Reply
 
@@ -122,12 +127,37 @@ When the user's question involves images, files, or other attachments:
 
 ### Directory Management
 
-- Knowledge directories start flat at the repository root.
-- No more than 10 subdirectories at any level.
-- When exceeded, reorganize using the **MECE principle** (Mutually Exclusive, Collectively Exhaustive):
-  - **Mutually Exclusive**: Each subdirectory has clear topical boundaries; entries belong to exactly one category.
-  - **Collectively Exhaustive**: All existing entries fit into some category — nothing is left out.
-  - Aim for 3–10 entries per subdirectory.
+#### Directory Types
+
+- A **knowledge entry directory** contains a `prompt.md` file directly inside it, together with its HTML, PDF, and PNG files.
+- A **category directory** does not contain a `prompt.md` directly; it contains knowledge entry directories or narrower category directories.
+- Repository infrastructure such as `.git/`, `.github/`, `.claude/`, `.hvigor/`, and other hidden or tooling directories does not participate in knowledge hierarchy decisions.
+
+#### Layout Mode
+
+- **Flat mode** is allowed only when the repository root has no category directories and the knowledge base is still small. In this mode, knowledge entry directories may be created directly under the repository root.
+- **Categorized mode** applies as soon as the repository root contains at least one category directory. In this mode:
+  - The repository root is reserved for governance files, tooling directories, and category directories.
+  - Every new knowledge entry must be placed under the narrowest appropriate existing category path.
+  - A root-level knowledge entry is invalid, even if fewer than 10 root directories currently exist.
+  - Existing misplaced root-level entries do not switch the repository back to flat mode and must not be used as precedent.
+- **Never mix modes**: category directories and root-level knowledge entry directories must not coexist as an intentional layout.
+
+#### Placement Procedure
+
+1. Inspect the full knowledge tree before creating files; do not infer the layout from the root directory count alone.
+2. Reuse the narrowest existing category or subcategory whose scope clearly contains the new topic.
+3. If no existing category fits, create a new MECE category or subcategory first, then place the knowledge entry inside it. Do not create the entry at the root to postpone the classification decision.
+4. When a task touches a misplaced root-level knowledge entry in categorized mode, relocate that entry to the best-fitting category as part of the task and update affected relative references. Do not bulk-move unrelated entries unless the user asks for repository-wide reorganization.
+
+#### Size Limits and Reorganization
+
+- No category or repository level may contain more than 10 knowledge/category child directories.
+- If adding an entry would create an 11th child, reorganize that level **before** creating the entry.
+- Reorganize using the **MECE principle** (Mutually Exclusive, Collectively Exhaustive):
+  - **Mutually Exclusive**: Each category has clear topical boundaries; an entry belongs to exactly one category.
+  - **Collectively Exhaustive**: Every entry at that level fits into a category — nothing is left out.
+  - Aim for 3–10 children per category.
   - After reorganization, update any relative path references in affected files.
 
 ---
